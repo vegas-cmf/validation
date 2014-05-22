@@ -32,11 +32,6 @@ class CloneableTest extends \PHPUnit_Framework_TestCase
         $this->form->add($cloneable);
     }
 
-    public function testSetup()
-    {
-
-    }
-
     public function testValues()
     {
         $cloneable = $this->prepareValidCloneableField();

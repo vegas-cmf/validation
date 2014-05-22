@@ -1,4 +1,4 @@
-Vegas CMF Core lib
+Vegas CMF Validation lib
 ======================
 
 # List of contents
@@ -7,7 +7,10 @@ Vegas CMF Core lib
 * Vegas\Validation\Validator\Email
 * Vegas\Validation\Validator\Ip
 * Vegas\Validation\Validator\Phone
+* Vegas\Validation\Validator\SameAs
 * Vegas\Validation\Validator\SizeOf
+* Vegas\Validation\Validator\Unique
+* Vegas\Validation\Validator\Url
 
 # Vegas\Validation\ValidatorTrait#
 

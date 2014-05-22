@@ -30,7 +30,8 @@ trait ValidatorTrait
         return $this->validateSingle($value);
     }
     
-    protected function validateArray(array $values) {
+    protected function validateArray(array $values)
+    {
         $valid = true;
         
         foreach ($values As $value) {
