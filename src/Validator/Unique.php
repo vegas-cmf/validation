@@ -11,8 +11,10 @@
  */
 namespace Vegas\Validation\Validator;
 	
-use Phalcon\Validation\Validator,
-    Phalcon\Validation\Message;
+use Phalcon\Validation\Validator;
+use Phalcon\Validation\Message;
+use Vegas\Validation\Validator\Unique\Adapter\Mongo;
+use Vegas\Validation\Validator\Unique\Exception\ModelNameNotSetException;
 
 class Unique extends Validator
 {
@@ -20,18 +22,7 @@ class Unique extends Validator
     
     protected function validateSingle($value)
     {
-        if (!$this->isSetOption('modelName')) {
-            throw new ModelNameNotSetException();
-        }
-
-        if (!$this->isSetOption('methodName')) {
-            $this->setOption('methodName', 'findById');
-        }
-
-        $modelName = $this->getOption('modelName');
-        $methodName = $this->getOption('methodName');
-
-        $record = $modelName::$methodName($value);
+        $record = $this->getRecord($value);
 
         if (!empty($record)) {
             $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'Unique'));
@@ -40,7 +31,30 @@ class Unique extends Validator
 
         return true;
     }
-    
+
+    private function getRecord($value)
+    {
+        $adapter = $this->getOption('adapter');
+        $modelName = $this->getOption('modelName');
+        $fieldName = $this->getOption('fieldName');
+
+        if (!$modelName) {
+            throw new ModelNameNotSetException();
+        }
+
+        if (!$fieldName) {
+            $fieldName = $this->attribute;
+        }
+
+        if (!$adapter) {
+            $adapter = new Mongo();
+        }
+
+        $adapter->setModelName($modelName);
+
+        return $adapter->retrieveOneBy($fieldName, $value);
+    }
+
     private function getMessage()
     {
         $message = $this->getOption('message');
