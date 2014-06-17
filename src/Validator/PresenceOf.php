@@ -20,6 +20,11 @@ class PresenceOf extends Validator\PresenceOf
     
     protected function validateSingle($value)
     {
-        return parent::validate($value, $this->attribute);
+        if ($value === null || $value === '') {
+            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'PresenceOf'));
+            return false;
+        }
+
+        return true;
     }
 }

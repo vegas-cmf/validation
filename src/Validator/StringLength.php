@@ -17,9 +17,21 @@ use Phalcon\Validation\Message;
 class StringLength extends Validator\StringLength
 {
     use \Vegas\Validation\ValidatorTrait;
-    
+
     protected function validateSingle($value)
     {
-        return parent::validate($value, $this->attribute);
+        $valid = true;
+
+        if (mb_strlen($value) > $this->getOption('max')) {
+            $this->validator->appendMessage(new Message($this->getOption('messageMaximum'), $this->attribute, 'StringLength'));
+            $valid = false;
+        }
+
+        if (mb_strlen($value) < $this->getOption('min')) {
+            $this->validator->appendMessage(new Message($this->getOption('messageMinimum'), $this->attribute, 'StringLength'));
+            $valid = false;
+        }
+
+        return $valid;
     }
 }

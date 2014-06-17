@@ -17,9 +17,14 @@ use Phalcon\Validation\Message;
 class Between extends Validator\Between
 {
     use \Vegas\Validation\ValidatorTrait;
-    
+
     protected function validateSingle($value)
     {
-        return parent::validate($value, $this->attribute);
+        if ($value > $this->getOption('max') || $value < $this->getOption('min')) {
+            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'Between'));
+            return false;
+        }
+
+        return true;
     }
 }

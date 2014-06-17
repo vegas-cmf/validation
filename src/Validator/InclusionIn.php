@@ -17,9 +17,14 @@ use Phalcon\Validation\Message;
 class InclusionIn extends Validator\InclusionIn
 {
     use \Vegas\Validation\ValidatorTrait;
-    
+
     protected function validateSingle($value)
     {
-        return parent::validate($value, $this->attribute);
+        if (!in_array($value, $this->getOption('domain'))) {
+            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'InclusionIn'));
+            return false;
+        }
+
+        return true;
     }
 }

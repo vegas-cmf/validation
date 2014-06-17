@@ -17,9 +17,14 @@ use Phalcon\Validation\Message;
 class Identical extends Validator\Identical
 {
     use \Vegas\Validation\ValidatorTrait;
-    
+
     protected function validateSingle($value)
     {
-        return parent::validate($value, $this->attribute);
+        if ($value !== $this->getOption('value')) {
+            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'Identical'));
+            return false;
+        }
+
+        return true;
     }
 }

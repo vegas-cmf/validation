@@ -17,9 +17,14 @@ use Phalcon\Validation\Message;
 class Regex extends Validator\Regex
 {
     use \Vegas\Validation\ValidatorTrait;
-    
+
     protected function validateSingle($value)
     {
-        return parent::validate($value, $this->attribute);
+        if (!preg_match($this->getOption('pattern'), $value)) {
+            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'Regex'));
+            return false;
+        }
+
+        return true;
     }
 }
