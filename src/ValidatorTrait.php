@@ -20,8 +20,8 @@ trait ValidatorTrait
     {
         $this->validator = $validator;
         $this->attribute = $attribute;
-        
-        $value = $validator->getValue($attribute);
+
+        $value = $this->resolveValue();
         
         if (is_array($value)) {
             return $this->validateArray($value);
@@ -44,6 +44,29 @@ trait ValidatorTrait
         
         return $valid;
     }
-    
+
+    private function resolveValue()
+    {
+        $name = $this->resolveName();
+
+        if (is_array($name)) {
+            $value = $this->validator->getValue($name[1]);
+            return $value[$name[2]];
+        }
+
+        return $this->validator->getValue($name);
+    }
+
+    private function resolveName()
+    {
+        $matches = array();
+
+        if (preg_match('/^([a-zA-Z0-9\-\_]+)\[([a-zA-Z0-9\-\_]*)\](\[([a-zA-Z0-9\-\_]*)\])?$/', $this->attribute, $matches)) {
+            return $matches;
+        }
+
+        return $this->attribute;
+    }
+
     abstract protected function validateSingle($value);
 }

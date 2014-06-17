@@ -14,27 +14,12 @@ namespace Vegas\Validation\Validator;
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
 
-class Ip extends Validator
+class Confirmation extends Validator\Confirmation
 {
     use \Vegas\Validation\ValidatorTrait;
     
     protected function validateSingle($value)
     {
-        if ($value && !filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6)) {
-            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'Ip'));
-            return false;
-        }
-        
-        return true;   
-    }
-    
-    private function getMessage()
-    {
-        $message = $this->getOption('message');
-        if (!$message) {
-            $message = 'The IP is not valid';
-        }
-        
-        return $message;
+        return parent::validate($value, $this->attribute);
     }
 }

@@ -18,15 +18,15 @@
  */
 namespace Vegas\Validation\Validator;
 
-use Phalcon\Validation\Validator,
-    Phalcon\Validation\Message;
+use Phalcon\Validation\Validator;
+use Phalcon\Validation\Message;
 
 class Cloneable extends Validator
 {
     private $validator;
     private $attribute;
     private $messages;
-    
+
     public function validate($validator, $attribute)
     {
         $this->validator = $validator;

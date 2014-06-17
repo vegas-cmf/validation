@@ -18,8 +18,8 @@
  */
 namespace Vegas\Validation\Validator;
 
-use Phalcon\Validation\Validator,
-    Phalcon\Validation\Message;
+use Phalcon\Validation\Validator;
+use Phalcon\Validation\Message;
 
 class SizeOf extends Validator
 {
