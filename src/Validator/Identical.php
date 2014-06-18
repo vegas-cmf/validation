@@ -21,10 +21,20 @@ class Identical extends Validator\Identical
     protected function validateSingle($value)
     {
         if ($value !== $this->getOption('value')) {
-            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'Identical'));
+            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'Identical'));
             return false;
         }
 
         return true;
+    }
+
+    private function getMessage()
+    {
+        $message = $this->getOption('message');
+        if (!$message) {
+            $message = 'Field value should the same as '.$this->getOption('value').'.';
+        }
+
+        return $message;
     }
 }

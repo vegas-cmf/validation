@@ -23,15 +23,35 @@ class StringLength extends Validator\StringLength
         $valid = true;
 
         if (mb_strlen($value) > $this->getOption('max')) {
-            $this->validator->appendMessage(new Message($this->getOption('messageMaximum'), $this->attribute, 'StringLength'));
+            $this->validator->appendMessage(new Message($this->getMessageMaximum(), $this->attribute, 'StringLength'));
             $valid = false;
         }
 
         if (mb_strlen($value) < $this->getOption('min')) {
-            $this->validator->appendMessage(new Message($this->getOption('messageMinimum'), $this->attribute, 'StringLength'));
+            $this->validator->appendMessage(new Message($this->getMessageMinimum(), $this->attribute, 'StringLength'));
             $valid = false;
         }
 
         return $valid;
+    }
+
+    private function getMessageMinimum()
+    {
+        $message = $this->getOption('messageMinimum');
+        if (!$message) {
+            $message = 'Minimum length of string is '.$this->getOption('min');
+        }
+
+        return $message;
+    }
+
+    private function getMessageMaximum()
+    {
+        $message = $this->getOption('messageMaximum');
+        if (!$message) {
+            $message = 'Maximum length of string is '.$this->getOption('max');
+        }
+
+        return $message;
     }
 }

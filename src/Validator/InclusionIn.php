@@ -21,10 +21,20 @@ class InclusionIn extends Validator\InclusionIn
     protected function validateSingle($value)
     {
         if (!in_array($value, $this->getOption('domain'))) {
-            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'InclusionIn'));
+            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'InclusionIn'));
             return false;
         }
 
         return true;
+    }
+
+    private function getMessage()
+    {
+        $message = $this->getOption('message');
+        if (!$message) {
+            $message = 'Field value should be one of the: '.implode(', ', $this->getOption('domain')).'.';
+        }
+
+        return $message;
     }
 }

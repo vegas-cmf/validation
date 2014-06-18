@@ -21,10 +21,21 @@ class ExclusionIn extends Validator\ExclusionIn
     protected function validateSingle($value)
     {
         if (in_array($value, $this->getOption('domain'))) {
-            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'ExclusionIn'));
+            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'ExclusionIn'));
             return false;
         }
 
         return true;
     }
+
+    private function getMessage()
+    {
+        $message = $this->getOption('message');
+        if (!$message) {
+            $message = 'Field value can not be one of the: '.implode(', ', $this->getOption('domain')).'.';
+        }
+
+        return $message;
+    }
+
 }

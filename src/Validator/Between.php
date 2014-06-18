@@ -21,10 +21,20 @@ class Between extends Validator\Between
     protected function validateSingle($value)
     {
         if ($value > $this->getOption('max') || $value < $this->getOption('min')) {
-            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'Between'));
+            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'Between'));
             return false;
         }
 
         return true;
+    }
+
+    private function getMessage()
+    {
+        $message = $this->getOption('message');
+        if (!$message) {
+            $message = 'Field should have value between '.$this->getOption('min').' and '.$this->getOption('max').'.';
+        }
+
+        return $message;
     }
 }

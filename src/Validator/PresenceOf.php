@@ -21,10 +21,20 @@ class PresenceOf extends Validator\PresenceOf
     protected function validateSingle($value)
     {
         if ($value === null || $value === '') {
-            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'PresenceOf'));
+            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'PresenceOf'));
             return false;
         }
 
         return true;
+    }
+
+    private function getMessage()
+    {
+        $message = $this->getOption('message');
+        if (!$message) {
+            $message = 'Field is required.';
+        }
+
+        return $message;
     }
 }

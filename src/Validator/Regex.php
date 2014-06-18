@@ -21,10 +21,20 @@ class Regex extends Validator\Regex
     protected function validateSingle($value)
     {
         if (!preg_match($this->getOption('pattern'), $value)) {
-            $this->validator->appendMessage(new Message($this->getOption('message'), $this->attribute, 'Regex'));
+            $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'Regex'));
             return false;
         }
 
         return true;
+    }
+
+    private function getMessage()
+    {
+        $message = $this->getOption('message');
+        if (!$message) {
+            $message = 'Field value should match '.$this->getOption('pattern').'.';
+        }
+
+        return $message;
     }
 }
