@@ -20,7 +20,7 @@ class Regex extends Validator\Regex
 
     protected function validateSingle($value)
     {
-        if (!preg_match($this->getOption('pattern'), $value)) {
+        if ($value && !preg_match($this->getOption('pattern'), $value)) {
             $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'Regex'));
             return false;
         }
