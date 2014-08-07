@@ -32,7 +32,7 @@ class Identical extends Validator\Identical
     {
         $message = $this->getOption('message');
         if (!$message) {
-            $message = 'Field value should the same as '.$this->getOption('value').'.';
+            $message = 'Field value should be the same as '.$this->getOption('value').'.';
         }
 
         return $message;
