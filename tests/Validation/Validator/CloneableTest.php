@@ -27,9 +27,6 @@ class CloneableTest extends \PHPUnit_Framework_TestCase
 
         $this->form = new FakeForm();
         $this->form->remove('fake_field');
-
-        $cloneable = $this->prepareValidCloneableField();
-        $this->form->add($cloneable);
     }
 
     public function testValues()
