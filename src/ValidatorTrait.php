@@ -15,7 +15,12 @@ trait ValidatorTrait
 {
     protected $validator;
     protected $attribute;
-    
+
+    /**
+     * @param $validator
+     * @param $attribute
+     * @return bool
+     */
     public function validate($validator, $attribute)
     {
         $this->validator = $validator;
@@ -29,7 +34,11 @@ trait ValidatorTrait
         
         return $this->validateSingle($value);
     }
-    
+
+    /**
+     * @param array $values
+     * @return bool
+     */
     protected function validateArray(array $values)
     {
         $valid = true;
@@ -51,7 +60,7 @@ trait ValidatorTrait
 
         if (is_array($name)) {
             $value = $this->validator->getValue($name[1]);
-            return $value[$name[2]];
+            return isset($value[$name[2]]) ? $value[$name[2]] : null;
         }
 
         return $this->validator->getValue($name);
