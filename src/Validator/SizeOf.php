@@ -25,7 +25,7 @@ class SizeOf extends Validator
 {
     use \Vegas\Validation\ValidatorTrait;
     
-    public function validate($validator, $attribute)
+    public function validate(\Phalcon\Validation $validator, $attribute)
     {
         $this->validator = $validator;
         $this->attribute = $attribute;
