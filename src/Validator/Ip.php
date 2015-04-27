@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class Ip extends Validator
+class Ip extends Validator implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
     

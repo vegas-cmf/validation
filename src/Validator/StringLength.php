@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class StringLength extends Validator\StringLength
+class StringLength extends Validator\StringLength implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

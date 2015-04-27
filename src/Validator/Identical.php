@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class Identical extends Validator\Identical
+class Identical extends Validator\Identical implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

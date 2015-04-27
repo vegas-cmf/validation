@@ -13,9 +13,10 @@ namespace Vegas\Validation\Validator;
 	
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 use Vegas\Validation\Validator\SameAs\Exception\MatchNotSetException;
 
-class SameAs extends Validator
+class SameAs extends Validator implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

@@ -13,9 +13,10 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 use \Vegas\Validation\Validator\Date\Exception\FormatNotSetException;
 
-class Date extends Validator
+class Date extends Validator implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

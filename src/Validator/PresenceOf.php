@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class PresenceOf extends Validator\PresenceOf
+class PresenceOf extends Validator\PresenceOf implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
     

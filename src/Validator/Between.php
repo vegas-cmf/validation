@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class Between extends Validator\Between
+class Between extends Validator\Between implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

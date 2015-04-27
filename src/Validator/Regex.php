@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class Regex extends Validator\Regex
+class Regex extends Validator\Regex implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

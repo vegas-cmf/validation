@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class ExclusionIn extends Validator\ExclusionIn
+class ExclusionIn extends Validator\ExclusionIn implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
 

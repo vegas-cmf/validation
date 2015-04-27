@@ -13,10 +13,11 @@ namespace Vegas\Validation\Validator;
 	
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 use Vegas\Validation\Validator\Unique\Adapter\Mongo;
 use Vegas\Validation\Validator\Unique\Exception\ModelNameNotSetException;
 
-class Unique extends Validator
+class Unique extends Validator implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
     

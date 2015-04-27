@@ -13,8 +13,9 @@ namespace Vegas\Validation\Validator;
 
 use Phalcon\Validation\Validator;
 use Phalcon\Validation\Message;
+use Phalcon\Validation\ValidatorInterface;
 
-class Phone extends Validator
+class Phone extends Validator implements ValidatorInterface
 {
     use \Vegas\Validation\ValidatorTrait;
     
