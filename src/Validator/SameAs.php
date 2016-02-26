@@ -22,7 +22,7 @@ class SameAs extends Validator implements ValidatorInterface
 
     protected function validateSingle($value)
     {
-        if (!$this->isSetOption('match')) {
+        if (!$this->hasOption('match')) {
             throw new MatchNotSetException();
         }
 

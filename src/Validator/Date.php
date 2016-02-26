@@ -32,7 +32,7 @@ class Date extends Validator implements ValidatorInterface
 
     private function validateDateTime($value)
     {
-        if(!$this->isSetOption('format')) {
+        if(!$this->hasOption('format')) {
             throw new FormatNotSetException();
         }
         $date = \DateTime::createFromFormat($this->getOption('format'), $value);
