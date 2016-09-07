@@ -21,7 +21,12 @@ class InclusionIn extends Validator\InclusionIn implements ValidatorInterface
 
     protected function validateSingle($value)
     {
-        if (!in_array($value, $this->getOption('domain'))) {
+        if ($this->getOption('allowEmpty') && empty($value)) {
+            return true;
+        }
+
+        $strictComparison = (bool) $this->getOption('strict');
+        if (!in_array($value, $this->getOption('domain'), $strictComparison)) {
             $this->validator->appendMessage(new Message($this->getMessage(), $this->attribute, 'InclusionIn'));
             return false;
         }
