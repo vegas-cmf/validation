@@ -10,11 +10,11 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "ext-phalcon": "2.*"
+        "php": ">=5.5",
+        "ext-phalcon": "3.*"
     },
     "require-dev": {
-        "phalcon/devtools": "1.3.x-dev",
+        "phalcon/devtools": "3.0.x-dev",
         "phpunit/phpunit": "4.0.*",
         "satooshi/php-coveralls": "1.0.1"
     },
