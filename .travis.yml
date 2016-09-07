@@ -9,15 +9,19 @@ services:
   - mongodb
   - memcached
 
+env:
+  - PHALCON_VERSION="v3.0.1" CC="ccache gcc" PATH="$PATH:~/bin"
+
 before_install:
   - mysql -e "CREATE DATABASE IF NOT EXISTS vegas_test;" -uroot
 
 before_script:
   - phpenv config-add travis/php.ini
-  - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b phalcon-v2.0.13
-  - (cd cphalcon/ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall"; phpize && ./configure --enable-phalcon && make -j4 && sudo make install && phpenv config-add ../unit-tests/ci/phalcon.ini)
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev
+  - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b ${PHALCON_VERSION}
+  - (cd cphalcon/build; bash install &>/dev/null)
+  - phpenv config-add cphalcon/tests/_ci/phalcon.ini &> /dev/null
+  - php --ri phalcon
+  - travis_retry composer install --dev --no-interaction
 
 script:
   - mkdir -p tests/fixtures/cache
