@@ -16,13 +16,14 @@ use Vegas\Validation\Validator\InclusionIn;
 class InclusionInTest extends \PHPUnit_Framework_TestCase
 {
     protected $validation;
+    protected $validator;
 
     protected function setUp()
     {
         $this->validation = new \Phalcon\Validation();
 
-        $validator = new InclusionIn(array('domain' => array(1, 'abc', '<oreo>')));
-        $this->validation->add('value', $validator);
+        $this->validator = new InclusionIn(array('domain' => array(1, 'abc', '<oreo>')));
+        $this->validation->add('value', $this->validator);
     }
 
     public function testSingleInput()
@@ -31,6 +32,12 @@ class InclusionInTest extends \PHPUnit_Framework_TestCase
         $messages = $this->validation->validate($inRangeValueIntAsString);
 
         $this->assertEquals(0, count($messages));
+
+        $strictComparison = $this->validator->getOption('strict');
+        $this->validator->setOption('strict', true);
+        $messages = $this->validation->validate($inRangeValueIntAsString);
+        $this->assertEquals(1, count($messages));
+        $this->validator->setOption('strict', $strictComparison);
 
         $inRangeValue = array('value' => 'abc');
         $messages = $this->validation->validate($inRangeValue);
@@ -41,6 +48,23 @@ class InclusionInTest extends \PHPUnit_Framework_TestCase
         $messages = $this->validation->validate($outOfRangeValue);
 
         $this->assertEquals(1, count($messages));
+    }
+
+    public function testEmptyInput()
+    {
+        $messages = $this->validation->validate(['value' => '']);
+        $this->assertEquals(1, count($messages));
+
+        $messages = $this->validation->validate(['value' => null]);
+        $this->assertEquals(1, count($messages));
+
+        $this->validator->setOption('allowEmpty', true);
+
+        $messages = $this->validation->validate(['value' => '']);
+        $this->assertEquals(0, count($messages));
+
+        $messages = $this->validation->validate(['value' => null]);
+        $this->assertEquals(0, count($messages));
     }
 
     public function testArrayInput()
