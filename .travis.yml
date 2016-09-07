@@ -9,10 +9,12 @@ services:
   - memcached
 
 env:
-  - PHALCON_VERSION="v3.0.1" CC="ccache gcc" PATH="$PATH:~/bin"
-
-before_install:
-  - mysql -e "CREATE DATABASE IF NOT EXISTS vegas_test;" -uroot
+  - PHALCON_VERSION="v3.0.1"
+  - CC="ccache gcc"
+  - PATH="$PATH:~/bin"
+  - MONGO_DB_NAME=vegas_test
+  - MONGO_PORT_27017_TCP_ADDR=localhost
+  - MONGO_PORT_27017_TCP_PORT=27017
 
 before_script:
   - phpenv config-add travis/php.ini

@@ -1,0 +1,22 @@
+mongo:
+    image: mongo:3.0.8
+    container_name: mongo
+    command: mongod --smallfiles
+    expose:
+      - 27017
+      - 28017
+    environment:
+      - AUTH=no
+      - TERM=xterm-256color
+
+phpunit:
+    build: .
+    container_name: phpunit
+    command: vendor/bin/phpunit
+    environment:
+      - TERM=xterm-256color
+      - MONGO_DB_NAME=vegas_test
+    links:
+      - mongo:mongo
+    volumes:
+      - ./:/var/www/html
