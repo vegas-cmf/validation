@@ -24,7 +24,7 @@ before_install:
   - printf "\n" | pecl install mongo &> /dev/null
 
 before_script:
-  - ./travis/install-php-extension.sh ${PHALCON_VERSION}
+  - ./travis/install-phalcon-extension.sh ${PHALCON_VERSION}
   - php --ri phalcon
   - travis_retry composer install --dev --no-interaction
 
