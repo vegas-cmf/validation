@@ -10,18 +10,21 @@ services:
 
 env:
   global:
-    - PHALCON_VERSION="v3.0.1"
-    - CC="ccache gcc"
-    - PATH="$PATH:~/bin"
-    - MONGO_DB_NAME=vegas_test
-    - MONGO_PORT_27017_TCP_ADDR=localhost
+    - MONGO_DB_NAME="vegas_test"
+    - MONGO_PORT_27017_TCP_ADDR="localhost"
     - MONGO_PORT_27017_TCP_PORT=27017
+  matrix:
+    - PHALCON_VERSION="3.0.x"
+    - PHALCON_VERSION="v3.0.3"
+    - PHALCON_VERSION="v3.0.2"
+    - PHALCON_VERSION="v3.0.1"
+    - PHALCON_VERSION="v3.0.0"
+
+before_install:
+  - printf "\n" | pecl install mongo &> /dev/null
 
 before_script:
-  - phpenv config-add travis/php.ini
-  - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b ${PHALCON_VERSION}
-  - (cd cphalcon/build; bash install &>/dev/null)
-  - phpenv config-add cphalcon/tests/_ci/phalcon.ini &> /dev/null
+  - ./travis/install-php-extension.sh ${PHALCON_VERSION}
   - php --ri phalcon
   - travis_retry composer install --dev --no-interaction
 
